@@ -11,36 +11,42 @@ public class HamletParser {
 
     private String hamletData;
 
-    public HamletParser(){
+    public HamletParser() {
         this.hamletData = loadFile();
     }
 
-    private String loadFile(){
+    private String loadFile() {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("hamlet.txt").getFile());
         StringBuilder result = new StringBuilder("");
 
-        try(Scanner scanner = new Scanner(file)){
-            while(scanner.hasNextLine()){
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 result.append(line).append("\n");
             }
 
             scanner.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return result.toString();
     }
 
-    public String getHamletData(){
+    public String getHamletData() {
         return hamletData;
     }
 
     public boolean findHamlet(String string) {
 
         Pattern pattern = Pattern.compile("(?i)hamlet");
+        Matcher matcher = pattern.matcher(string);
+        return matcher.matches();
+    }
+
+    public boolean findHoratio(String string) {
+        Pattern pattern = Pattern.compile("(?i)horatio");
         Matcher matcher = pattern.matcher(string);
         return matcher.matches();
 

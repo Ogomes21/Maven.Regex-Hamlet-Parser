@@ -42,13 +42,35 @@ public class HamletParserTest {
         Assert.assertTrue(actual);
     }
 
-
     @Test
-    public void testChangeHamletToLeon() {
+    public void testFindHoratio() {
+
+        //Given
+        String horatioWord = "horatio";
+
+        //When
+        Boolean actual = hamletParser.findHoratio(horatioWord);
+
+        //Then
+        Assert.assertTrue(actual);
     }
 
     @Test
-    public void testFindHoratio() {
+    public void testFindHoratioUpperCase() {
+
+        //Given
+        String horatioWord = "Horatio";
+
+        //When
+        Boolean actual = hamletParser.findHoratio(horatioWord);
+
+        //Then
+        Assert.assertTrue(actual);
+    }
+
+
+    @Test
+    public void testChangeHamletToLeon() {
     }
 
 
