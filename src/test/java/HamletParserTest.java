@@ -71,6 +71,15 @@ public class HamletParserTest {
 
     @Test
     public void testChangeHamletToLeon() {
+        //Given
+        String line = "This is a string line, Hamlet.";
+
+        //When
+        String expected = "This is a string line, Leon.";
+        String actual = hamletParser.changeHamletToLeon(line);
+
+        //Then
+        Assert.assertSame(expected, actual);
     }
 
 

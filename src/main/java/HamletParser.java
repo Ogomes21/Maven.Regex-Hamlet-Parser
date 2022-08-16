@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * Created by thook on 10/7/15.
  */
 public class HamletParser {
-
+StringBuffer sb = new StringBuffer();
     private String hamletData;
 
     public HamletParser() {
@@ -38,17 +38,85 @@ public class HamletParser {
         return hamletData;
     }
 
-    public boolean findHamlet(String string) {
+    public String replaceHamletWithLeon() {
+        Pattern hamletPattern = Pattern.compile("Hamlet+", Pattern.CASE_INSENSITIVE);
+        Matcher hamletMatcher = hamletPattern.matcher(hamletData);
 
-        Pattern pattern = Pattern.compile("(?i)hamlet");
-        Matcher matcher = pattern.matcher(string);
-        return matcher.matches();
+        while (hamletMatcher.find()) {
+            hamletMatcher.appendReplacement(sb, "Leon");
+        }
+        hamletMatcher.appendTail(sb);
+        return sb.toString();
     }
 
-    public boolean findHoratio(String string) {
-        Pattern pattern = Pattern.compile("(?i)horatio");
-        Matcher matcher = pattern.matcher(string);
-        return matcher.matches();
+    public String replaceHoratioWithTariq() {
+        Pattern horatioPattern = Pattern.compile("Horatio+", Pattern.CASE_INSENSITIVE);
+        Matcher horatioMatcher = horatioPattern.matcher(hamletData);
 
+        while (horatioMatcher.find()) {
+            horatioMatcher.appendReplacement(sb, "Tariq");
+        }
+        horatioMatcher.appendTail(sb);
+        return sb.toString();
     }
+
+    public boolean findInput (String toFind) {
+        boolean foundInput=false;
+        String[] words = getHamletData().split("\\s+");
+        for (String word : words) {
+            if (word.equalsIgnoreCase(toFind)) {
+                foundInput=true;
+            }
+        }
+        return foundInput;
+    }
+
+    public int howManyTimesFound(String toFind) {
+        int counter=0;
+        Pattern inputPattern = Pattern.compile(toFind, Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = inputPattern.matcher(hamletData);
+
+        while (inputMatcher.find()) {
+            counter++;
+        }
+//        String[] words = getHamletData().split("\\s+");
+//        for (String word : words) {
+//            if (word.equalsIgnoreCase(toFind)) {
+//                counter++;
+//            }
+//        }
+        return counter;
+    }
+
 }
+
+//    public boolean findHamlet(String string) {
+//
+//        Pattern pattern = Pattern.compile("(?i)hamlet");
+//        Matcher matcher = pattern.matcher(string);
+//        return matcher.matches();
+//    }
+//
+//    public boolean findHoratio(String string) {
+//
+//        Pattern pattern = Pattern.compile("(?i)horatio");
+//        Matcher matcher = pattern.matcher(string);
+//        return matcher.matches();
+//    }
+//
+//    public String changeHamletToLeon(String line) {
+//        Pattern pattern = Pattern.compile("(?i)hamlet");
+//        Matcher matcher = pattern.matcher(string);
+//
+//        String[] wordArr = line.split("\\s+");
+//        for (String word: wordArr) {
+//            if (findHamlet(word)) {
+//               matcher.appendReplacement(word);
+//
+//
+//            }
+//        }
+//        return line;
+//    }
+//
+//}
