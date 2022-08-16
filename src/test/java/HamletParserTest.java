@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 
 public class HamletParserTest {
     private String hamletText;
@@ -17,77 +20,77 @@ public class HamletParserTest {
     }
 
     @Test
-    public void testFindHamlet() {
-
-        //Given
-        String hamletWord = "hamlet";
-
-        //When
-        Boolean actual = hamletParser.findHamlet(hamletWord);
-
-        //Then
-        Assert.assertTrue(actual);
+    public void testChangeHamletToLeon() {
+        // Given
+        String actualHamletToLeon = hamletParser.replaceHamletWithLeon();
+        String[] words = actualHamletToLeon.split("\\s+");
+        int countOfHamlet =0;
+        int countOfLeon =0;
+        // When
+        for (String word : words) {
+            if (word.equalsIgnoreCase("hamlet")) {
+                countOfHamlet++;
+            }
+            if (word.equalsIgnoreCase("leon")) {
+                countOfLeon++;
+            }
+        }
+        // Then
+        assertEquals(0, countOfHamlet);
+        assertTrue(countOfLeon>0);
     }
 
     @Test
-    public void testFindHamletUpperCase() {
-
-        //Given
-        String hamletWord = "Hamlet";
-
-        //When
-        Boolean actual = hamletParser.findHamlet(hamletWord);
-
-        //Then
-        Assert.assertTrue(actual);
+    public void testChangeHoratioToTariq() {
+        // Given
+        String actualHoratioToTariq = hamletParser.replaceHoratioWithTariq();
+        String[] words = actualHoratioToTariq.split("\\s+");
+        int countOfHoratio=0;
+        int countOfTariq=0;
+        // When
+        for (String word : words) {
+            if (word.equalsIgnoreCase("horatio")) {
+                countOfHoratio++;
+            }
+            if (word.equalsIgnoreCase("tariq")) {
+                countOfTariq++;
+            }
+        }
+        // Then
+        assertEquals(0, countOfHoratio);
+        assertTrue(countOfTariq>0);
     }
 
     @Test
     public void testFindHoratio() {
-
-        //Given
-        String horatioWord = "horatio";
-
-        //When
-        Boolean actual = hamletParser.findHoratio(horatioWord);
-
-        //Then
-        Assert.assertTrue(actual);
+        // Given
+        String strHoratio="horatio";
+        boolean actualFoundHoratioOutcome=hamletParser.findInput(strHoratio);
+        // When
+        boolean expectedFoundHoratioOutcome=true;
+        // Then
+        assertEquals(expectedFoundHoratioOutcome, actualFoundHoratioOutcome);
     }
 
     @Test
-    public void testFindHoratioUpperCase() {
-
-        //Given
-        String horatioWord = "Horatio";
-
-        //When
-        Boolean actual = hamletParser.findHoratio(horatioWord);
-
-        //Then
-        Assert.assertTrue(actual);
+    public void testFindHamlet() {
+        // Given
+        String strHamlet="Hamlet";
+        boolean actualFoundHamletOutcome=hamletParser.findInput(strHamlet);
+        // When
+        boolean expectedFoundHamletOutcome=true;
+        // Then
+        assertEquals(expectedFoundHamletOutcome, actualFoundHamletOutcome);
     }
-
 
     @Test
-    public void testChangeHamletToLeon() {
-        //Given
-        String line = "This is a string line, Hamlet.";
-
-        //When
-        String expected = "This is a string line, Leon.";
-        String actual = hamletParser.changeHamletToLeon(line);
-
-        //Then
-        Assert.assertSame(expected, actual);
+    public void testGetNumOfHamletOccurrences() {
+        // Given
+        int expectedHamletOccurrences = 472;
+        // When
+        int actualHamletOccurrences=hamletParser.howManyTimesFound("hamlet");
+        // Then
+        assertTrue(actualHamletOccurrences>10);
+        assertEquals(expectedHamletOccurrences, actualHamletOccurrences);
     }
-
-
-    @Test
-    public void testChangeHoratioToTariq() {
-    }
-
-
-
-
 }
